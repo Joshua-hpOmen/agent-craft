@@ -1,11 +1,22 @@
-import { authMiddleware } from "@clerk/nextjs";
+import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 
-export default authMiddleware({
-    publicRoutes: ["/", "/auth(.*)", "/portal(.*)"],
-    ignoredRoutes: ["/chatbot"]
-})
+const isPublicRoute = createRouteMatcher([
+  '/',
+  '/auth(.*)',
+  '/portal(.*)'
+])
 
+export default clerkMiddleware(async (auth, req) => {
+ if(!isPublicRoute(req)){
+  (await auth()).redirectToSignIn();
+ } 
+});
 
 export const config = {
-    matcher: ['/((?!.+.[w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
-}
+  matcher: [
+    // Skip Next.js internals and all static files, unless found in search params
+    '/((?!_next/|favicon.ico|chatbot|.*\\.(?:js|css|json|png|jpg|jpeg|gif|svg|ico|woff2?|ttf|eot|webmanifest)).*)',
+    // Always run for API routes
+    '/(api|trpc)(.*)',
+  ],
+};
