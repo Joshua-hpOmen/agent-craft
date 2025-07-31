@@ -1,3 +1,4 @@
+import ButtonHandler from '@/components/forms/sign-up/button-handler'
 import SignUpFormProvider from '@/components/forms/sign-up/form-provider'
 import RegistrationFormStep from '@/components/forms/sign-up/registration-step'
 import React from 'react'
@@ -12,7 +13,8 @@ const page = (props: Props) => {
             <SignUpFormProvider>
               
               <div className='flex flex-col gap-3'>
-                <RegistrationFormStep></RegistrationFormStep> 
+                <RegistrationFormStep/>
+                <ButtonHandler/>
               </div>
 
             </SignUpFormProvider>

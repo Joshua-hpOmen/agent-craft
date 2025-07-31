@@ -1,7 +1,8 @@
 "use client"
 import { UserType } from '@/types/user-type'
 import React from 'react'
-import { FieldValues, UseFormRegister } from 'react-hook-form'
+import { FieldValues, RegisterOptions, UseFormRegister, UseFormRegisterReturn } from 'react-hook-form'
+import UserTypeCard from './user-type-card'
 
 type Props = {
     register: UseFormRegister<FieldValues>,
@@ -21,6 +22,20 @@ const TypeSelectionForm = (props: Props) => {
             <br />
            experience so it best suits you. 
         </p>
+
+        <UserTypeCard value={UserType.OWNER} title="I own a business"
+            text="Setting up my account for my company" 
+            register={props.register} 
+            userType={props.userType} 
+            setUserType={props.setUserType}
+        />
+        
+        <UserTypeCard value={UserType.STUDENT} title="I'm a student"
+            text="Looking to learn about the tool" 
+            register={props.register} 
+            userType={props.userType} 
+            setUserType={props.setUserType}
+        />
     </>
   )
 
