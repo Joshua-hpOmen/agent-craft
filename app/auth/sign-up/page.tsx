@@ -4,9 +4,7 @@ import HighlightBar from '@/components/forms/sign-up/highlight-bar'
 import RegistrationFormStep from '@/components/forms/sign-up/registration-step'
 import React from 'react'
 
-type Props = {}
-
-const page = (props: Props) => {
+const page = () => {
   return (
     <div className='flex py-36 md:px-16 w-full'>
         <div className="flex flex-col h-full gap-3">
