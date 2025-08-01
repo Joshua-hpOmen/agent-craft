@@ -1,7 +1,7 @@
 "use client"
 import { UserType } from '@/types/user-type'
 import React from 'react'
-import { FieldValues, RegisterOptions, UseFormRegister, UseFormRegisterReturn } from 'react-hook-form'
+import { FieldValues, UseFormRegister } from 'react-hook-form'
 import UserTypeCard from './user-type-card'
 
 type Props = {

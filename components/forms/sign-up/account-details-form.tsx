@@ -1,0 +1,33 @@
+import { USER_REGISTRATION_FORM } from '@/constants/form'
+import React from 'react'
+import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form'
+import FormGenerator from '../form-generator'
+
+type Props = {
+    register: UseFormRegister<FieldValues>,
+    errros: FieldErrors<FieldValues>
+}
+
+const DetailForm = (props: Props) => {
+  return (
+    <>
+        <h2 className='text-gravel md:text-4xl font-bold'>Account Details</h2>   
+    
+        <p className='text-iridium md:text-sm'>
+            Enter your email and password
+        </p> 
+
+        {USER_REGISTRATION_FORM.map(field => (
+            <FormGenerator
+                key={field.id}
+                {...field}
+                errors={props.errros}
+                register={props.register}
+                name={field.name}
+            />
+        ))}
+    </>
+  )
+}
+
+export default DetailForm
