@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { CheckIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import data from "@/lib/blogs/blog-json.json";
 
 export default function Home() {
   return (
@@ -82,6 +83,36 @@ export default function Home() {
           ))} 
         </div>
 
+      </section>
+      
+      <section className="flex justify-center items-center flex-col gap-4 mt-8">
+        <h2 className="text-4xl text-center font-semibold">News Room</h2>
+        <p className="text-muted-foreground text-center max-w-lg">
+          Explore our insights on AI, technology, and optimizing your business.
+        </p>
+      </section>
+
+      <br />
+
+      <section className="flex flex-wrap gap-6 items-center justify-center">
+        {data.map(blog => (
+          <Link href={`/blog/${blog.id}`} key={blog.id}>
+            <Card key={blog.id} className="w-[400px] h-[340px]">
+
+              <CardHeader className="flex items-center flex-col">
+                <Image alt="Blog-image" src={blog.image} height={270} width={270} className="rounded-md"/>
+                <CardTitle>{blog.heading}</CardTitle>
+              </CardHeader>
+
+              <CardContent className="text-muted-foreground overflow-ellipsis overflow-hidden text-sm">
+                <div>
+                  {blog.paraOne}
+                </div>
+              </CardContent>
+
+            </Card>
+          </Link>
+        ))}
       </section>
     </main>
   );

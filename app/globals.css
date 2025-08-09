@@ -348,3 +348,21 @@ body {
   width: 100% !important;
   border-radius: 20px;
 }
+
+@keyframes open-sidebar {
+  from { width: 60px;}
+  to { width: 300px;}
+}
+
+@keyframes close-sidebar {
+  from { width: 300px;}
+  to { width: 60px;}
+}
+
+.open-sidebar {
+  animation: open-sidebar 0.2s ease-out;
+}
+
+.close-sidebar {
+  animation: close-sidebar 0.2 ease-out;
+}
