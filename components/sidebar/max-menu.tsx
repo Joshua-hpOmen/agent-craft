@@ -1,8 +1,10 @@
 import { SIDE_BAR_MENU } from '@/constants/menu'
-import { LogOutIcon, MenuIcon } from 'lucide-react'
+import { LogOutIcon, MenuIcon, MonitorSmartphoneIcon } from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
 import DomainMenu from './domain-menu'
+import { MENU_ITEMS_SIZES } from '@/types'
+import MenuItem from './menu-item'
 
 type Props = {
     onExpand: () => void,
@@ -21,13 +23,13 @@ const MaxMenu = (props: Props) => {
 
         <div className='flex justify-between items-center'>
 
-            <Image alt='Logo' src="/images/logo.png" width={0} height={0} style={{width: "50%", height: 'auto'}} />
+            <Image alt='Logo' src="/images/logo.png" style={{width: "50%", height: 'auto'}} width={400} height={0}/>
 
-            <MenuIcon className='cursor-pointer fade-in opacity-0 delay-300 fill-mode-forwards' onClick={props.onExpand}/>
+            <MenuIcon className='cursor-pointer fill-mode-forwards' onClick={props.onExpand}/>
 
         </div>
         
-        <div className='animate-fade-in opacity-0 delay-300 fill-mode-forwards flex flex-col justify-between h-full pt-10 '>
+        <div className='animate-fade-in fill-mode-forwards flex flex-col justify-between h-full pt-10 '>
 
             <div className='flex flex-col'>
 
@@ -37,7 +39,7 @@ const MaxMenu = (props: Props) => {
 
                 {SIDE_BAR_MENU.map((menu, key) => (
                     <MenuItem 
-                        size="max"
+                        size={MENU_ITEMS_SIZES.MAX}
                         {...menu}
                         key={key}
                         current={props.current}
@@ -46,14 +48,23 @@ const MaxMenu = (props: Props) => {
 
                 <DomainMenu domains={props.domains} />
 
-                <div className='flex flex-col'>
-                    <p className='text-xs text-gray-500 mb-4'>OPTIONS</p>
-                    <MenuItem
-                        size="max"
-                        label="Sign Out"
-                        icon={LogOutIcon}
-                        
-                </div>
+            </div>
+
+            <div className='flex flex-col'>
+                <p className='text-xs text-gray-500 mb-4'>OPTIONS</p>
+                <MenuItem
+                    size={MENU_ITEMS_SIZES.MAX}
+                    label="Sign Out"
+                    icon={LogOutIcon}
+                    onSignOut={props.onSignOut}
+                />
+
+                <MenuItem
+                    size={MENU_ITEMS_SIZES.MAX}
+                    label="Mobile App"
+                    icon={MonitorSmartphoneIcon}
+                />   
+
             </div>
 
         </div>

@@ -1,7 +1,7 @@
 "use server"
 
 import { db } from "@/lib/prisma";
-import { currentUser } from "@clerk/nextjs/server"
+import { clerkClient, currentUser } from "@clerk/nextjs/server"
 
 export const onGetSubscriptionPlan = async () => {
     try {
@@ -141,3 +141,21 @@ export const onIntegrateDomain = async (domain: string, icon: string) => {
         console.log("🔴There was an error in onIntegrateDomain", error)
     }
 } 
+
+export const onUpdatePassword = async  (password: string) => {
+
+    try {
+       const user = await currentUser();
+       
+       if(!user) return;
+       const update = await (await clerkClient()).users.updateUser(user.id, { password });
+
+       if(update) {
+        return {status: 200, message: "Updated password" };
+       }
+       
+    } catch (error) {
+       console.log("🔴There was an error in the function onUpdatePassword", error);
+    }
+
+}

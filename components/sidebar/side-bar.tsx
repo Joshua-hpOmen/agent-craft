@@ -1,3 +1,4 @@
+"use client"
 import useSidebar from '@/context/use-side-bar'
 import { cn } from '@/lib/utils'
 import React from 'react'

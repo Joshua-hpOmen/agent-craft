@@ -1,6 +1,6 @@
 "use client"
 import { onIntegrateDomain } from "@/actions/settings"
-import { AddDomainSchema } from "@/schema/settings-schema"
+import { AddDomainInptType, AddDomainSchema } from "@/schema/settings-schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import {UploadClient} from "@uploadcare/upload-client"
 import { usePathname, useRouter } from "next/navigation"
@@ -14,9 +14,8 @@ const uploadClient = new UploadClient({
 })
 
 export const useDomain = () => {
-    const { register, handleSubmit, formState: {errors}, reset} = useForm<z.infer<typeof AddDomainSchema>>({
+    const { register, handleSubmit, formState: {errors}, reset} = useForm<AddDomainInptType>({
         resolver: zodResolver(AddDomainSchema),
-
     })
 
     const pathname = usePathname();

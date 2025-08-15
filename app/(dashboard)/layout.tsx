@@ -1,4 +1,5 @@
 import { onLoginUser } from '@/actions/auth/on-login-user'
+import Sidebar from '@/components/sidebar/side-bar'
 import { ChatProvider } from '@/context/user-chat-context'
 import React from 'react'
 
@@ -14,8 +15,11 @@ const layout = async (props: Props) => {
     <ChatProvider>
 
       <div className='flex h-screen w-full'>
+        <Sidebar domains={authenticatedUser.domain} />
 
-        
+        <div className='w-full h-screen flex flex-col py-3 pr-10 pl-20 md:px-10'>
+          {props.children}
+        </div> 
 
       </div>
 

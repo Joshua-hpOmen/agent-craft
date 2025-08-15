@@ -34,6 +34,8 @@ export const useSingInForm = () => {
                 router.push("/dashboard")
             }
 
+            setLoading(false)
+
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any){
            setLoading(false) 

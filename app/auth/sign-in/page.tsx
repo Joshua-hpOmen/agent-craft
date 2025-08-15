@@ -18,7 +18,7 @@ const page = (props: Props) => {
 
             <div className='w-full flex flex-col gap-3 items-center'>
 
-              <Button className='w-full'>Submit</Button>
+              <Button className='w-full' type='submit'>Submit</Button>
 
               <p>
                 Don&apos;t have an account?{" "}

@@ -42,3 +42,17 @@ export const UserLoginSchema = z.object({
         .min(8, {message: "Your password must be atleast 8 character long"})
         .max(64, {message: "Your password can't be longer that 64 chars"})
 })
+
+export type ChangePasswordType = {
+    password: string,
+    confimPassword: string
+}
+
+export const ChangePasswordSchema = z.object({
+    password: z.string().min(8, {message: "Your password must be atleast 8 chars long"})
+        .refine(value => /^[a-zA-Z0-9_.-]*$/.test(value ?? ''), "Password should contain only alphanumeric characters"),
+    confimPassword: z.string()
+}).refine((schema) => schema.password === schema.confimPassword, {
+        message: "Passwords do not match",
+        path: ["confirmPassword"]
+    })
