@@ -1,6 +1,7 @@
 import { onGetCurrentDomainInfo } from '@/actions/settings/on-get-current-domain-info';
 import SettingsForm from '@/components/forms/settings/form';
 import InfoBar from '@/components/global/info-bar';
+import BotTrainingForm from '@/components/settings/bot-training';
 import { PlanType } from '@/types';
 import { redirect } from 'next/navigation';
 import React from 'react'
@@ -25,6 +26,10 @@ const page = async (props: Props) => {
                 chatBot={domain.domains[0].chatBot}
                 id={domain.domains[0].id}
                 name={domain.domains[0].name}
+            />
+
+            <BotTrainingForm 
+                id={domain.domains[0].id}
             />
 
         </div>

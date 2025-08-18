@@ -1,6 +1,7 @@
 "use client"
 import { onUpdatePassword } from "@/actions/settings";
 import { onChatBotImageUpdate } from "@/actions/settings/chatbot-image-update";
+import { onDeleteUserDomain } from "@/actions/settings/on-delete-domain";
 import { onUpdateWelcomMessage } from "@/actions/settings/updare-welcome-message";
 import { onUpdateDomain } from "@/actions/settings/update-domain";
 import { ChangePasswordSchema, ChangePasswordType } from "@/schema/auth-schema";
@@ -12,6 +13,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { fa } from "zod/v4/locales";
 
 const upload = new UploadClient({
     publicKey: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY!
@@ -112,6 +114,31 @@ export const useSettings = (id: string) => {
             setLoading(false);
         };
 
+        reset();
+        router.refresh();
+        setLoading(false);
     })
+
+    const onDeleteDomain = async () => {
+        setDeleting(true);
+        const deleted = await onDeleteUserDomain(id);
+
+        if(deleted){
+            toast.success(deleted.message, {id: "delete-domain"});
+        }else {
+            toast.error("Something went wrong", {id: "delete-domain"});
+        }
+
+        setDeleting(false)
+        router.refresh()
+    }
     
+    return {
+        register,
+        onDeleteDomain,
+        onUpdateSettings,
+        errors,
+        loading,
+        deleting, 
+    }
 }

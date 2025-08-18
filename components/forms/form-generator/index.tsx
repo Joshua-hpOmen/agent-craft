@@ -72,7 +72,7 @@ const FormGenerator = (props: Props) => {
             </Label>
 
         case UserRegFormIptType.INPUT:
-            return <Label className='flex flex-col gap-2' htmlFor={`input-${props.label}`}>
+            return <Label className='flex flex-col gap-2 items-start' htmlFor={`input-${props.label}`}>
                 {props.label}
 
                 <Input 

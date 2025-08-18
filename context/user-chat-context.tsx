@@ -10,7 +10,7 @@ export enum ChatsRole {
 export type ChatType = {
     message: string,
     id: string,
-    role: ChatsRole | null,
+    role: string | null,
     createdAt : Date,
     seen: boolean
 } 

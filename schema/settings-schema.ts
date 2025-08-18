@@ -71,3 +71,26 @@ export const DomainSettingsSchema = z
       path: ['image'],
     }
   )
+
+export type HelpDeskQuestionsType = {
+  question: string,
+  answer: string,
+}
+
+export const HelpDeskQuestionSchema = z.object({
+  question: z.string().min(1, {message: "Question cannot be left empty"}),
+  answer: z.string().min(1, {message: "Question cannot be left empty"})
+})
+
+export type FilterQuestionsType = { question: string}
+
+export const FilterQuestionsSchema = z.object({
+  question: z.string().min(1, {message: "Question cannot be left empty"}),
+})
+
+export const AddProductSchema = z.object({
+  name: z.string().min(3, {message: "The name must have atleast 3 chars"}),
+  image: z.any().refine(files => files[0]?.size <= MAX_UPLOAD_SIZE, {message: "Your file size must be less then 2MB,"})
+    .refine(files => ACCEPTED_FILE_TYPES.includes(files[0]?.type),  {message: "Only the following file types are accpeted: JPG, JPEG, PNG"}),
+  price: z.string()
+})
