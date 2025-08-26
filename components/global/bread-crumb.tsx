@@ -13,7 +13,7 @@ const BreadCrumb = (props: Props) => {
   return (
     <div className='flex flex-col'>
 
-      <div className='fkex gap-5 items-center'>
+      <div className='flex gap-5 items-center'>
         <h2 className='text-3xl font-bold capitalize'>{page}</h2>
         {page === "conversation" && chatRoom && <Loader loading={loading}>
           <Switch 

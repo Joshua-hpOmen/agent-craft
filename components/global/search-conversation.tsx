@@ -1,34 +1,43 @@
 import { DomainsType } from '@/types'
 import React from 'react'
-import { FieldValues, UseFormRegister } from 'react-hook-form'
+import { Control, Controller, FieldValues, UseFormRegister } from 'react-hook-form'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 
 type Props = {
     domains: DomainsType,
-    register: UseFormRegister<FieldValues>
+    register: UseFormRegister<FieldValues>,
+    control: Control<FieldValues>
 }
 
 const ConversationSearch = (props: Props) => {
   return (
-    <div className='flex flex-col py-3 w-full'>
-        <Select {...props.register("domain")}>
 
-            <SelectTrigger className='w-full'>
-                <SelectValue placeholder="Domain name"/>
-            </SelectTrigger>
+    <form className='flex flex-col py-3 w-full'>
+        <Controller
+            name="domain"
+            control={props.control}
+            render={({field}) => (
+                
+                <Select {...props.register("domain")} onValueChange={field.onChange} defaultValue={field.value}>
 
-            <SelectContent>
-                {
-                    props.domains?.map(domain => (
-                        <SelectItem value={domain.id} key={domain.id}>
-                            {domain.name}
-                        </SelectItem>
-                    ))
-                }
-            </SelectContent>
+                    <SelectTrigger className='w-full'>
+                        <SelectValue placeholder="Domain name"/>
+                    </SelectTrigger>
 
-        </Select>
-    </div>
+                    <SelectContent>
+                        {
+                            props.domains?.map(domain => (
+                                <SelectItem value={domain.id} key={domain.id}>
+                                    {domain.name}
+                                </SelectItem>
+                            ))
+                        }
+                    </SelectContent>
+
+                </Select>
+            ) }
+        />
+    </form>
   )
 }
 

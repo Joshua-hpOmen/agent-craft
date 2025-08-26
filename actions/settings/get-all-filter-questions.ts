@@ -1,15 +1,10 @@
 "use server"
 
 import { db } from "@/lib/prisma";
-import { currentUser } from "@clerk/nextjs/server"
 
 
 export const onGetAllFilterQuestions = async (id: string) => {
-    const user = await currentUser();
-
-    if(!user) throw new Error("unathenticated");
-
-    try {
+   try {
         
         const allFilterQuestions = await db.domain.findUnique({
             where: {id},

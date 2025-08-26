@@ -8,7 +8,7 @@ import React from "react"
 import { useForm } from "react-hook-form"
 
 export const useConversation = () => {
-    const {register, watch} = useForm<ConversationSearchType>({
+    const {register, watch, control} = useForm<ConversationSearchType>({
         resolver: zodResolver(COnversationSearchSchema),
         mode: "onChange"
     })
@@ -65,7 +65,8 @@ export const useConversation = () => {
         register,
         chatRooms,
         loading,
-        onGetActiveChatMessages
+        onGetActiveChatMessages,
+        control
     }
 
 }

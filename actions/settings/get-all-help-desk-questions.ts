@@ -1,12 +1,8 @@
 "use server"
 
 import { db } from "@/lib/prisma";
-import { currentUser } from "@clerk/nextjs/server"
 
 export const onGetAllHelpDeskQuestions = async (id: string) => {
-    const user = await currentUser();
-
-    if(!user) throw new Error("unauthenticated");
 
     try {
        

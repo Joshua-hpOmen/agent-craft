@@ -6,7 +6,7 @@ import TabsMenu from '../tabs'
 import { TABS_MENU } from '@/constants/menu'
 import { TabsContent } from '../ui/tabs'
 import ConversationSearch from './search-conversation'
-import { FieldValues, UseFormRegister } from 'react-hook-form'
+import { Control, Field, FieldValues, UseFormRegister } from 'react-hook-form'
 import Loader from './loader'
 import { CardDescription } from '../ui/card'
 import ChatCard from './chat-card'
@@ -16,7 +16,12 @@ type Props = {
 }
 
 const ConversationMenu = (props: Props) => {
-    const { register, chatRooms, loading, onGetActiveChatMessages } = useConversation();
+    const { register, chatRooms, loading, onGetActiveChatMessages, control } = useConversation();
+
+    console.log("🔴These are the chatRooms", chatRooms.length)
+    if(!!chatRooms.length) {
+        console.log("🔴These are the createdAt", chatRooms[0].chatRoom[0].createdAt)
+    }
   return (
     <div className='py-3 pr-3'>
         <TabsMenu triggers={TABS_MENU}>
@@ -25,6 +30,7 @@ const ConversationMenu = (props: Props) => {
                 <ConversationSearch 
                     domains={props.domain}
                     register={register as unknown as UseFormRegister<FieldValues>}
+                    control={control as unknown as Control<FieldValues>}
                 />
 
 

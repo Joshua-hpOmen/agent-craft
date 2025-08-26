@@ -27,7 +27,7 @@ export const useSingInForm = () => {
                 password: values.password
             })
 
-            if(authenticated.status !== "complete"){
+            if(authenticated.status === "complete"){
                 await setActive({session: authenticated.createdSessionId})
 
                 toast.success("Welcome back!",{id: "sign-in"})

@@ -1,7 +1,7 @@
 import {z} from "zod";
 
-const MAX_UPLOAD_SIZE = 1024**2 *2
-const ACCEPTED_FILE_TYPES = ["image/png", "image/jpg", "image/jpeg"]
+export const MAX_UPLOAD_SIZE = 1024**2 *2
+export const ACCEPTED_FILE_TYPES = ["image/png", "image/jpg", "image/jpeg"]
 
 export type AddDomainInptType = {
   domain: string,

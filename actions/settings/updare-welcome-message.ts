@@ -1,13 +1,8 @@
 "use server"
 
 import { db } from "@/lib/prisma";
-import { currentUser } from "@clerk/nextjs/server"
 
 export const onUpdateWelcomMessage = async (id: string, welcomeMessage: string) => {
-    const user  = currentUser();
-
-    if(!user) throw new Error("unauthenticated");
-
     try {
 
         const update =await db.domain.update({

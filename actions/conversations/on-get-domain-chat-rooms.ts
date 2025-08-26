@@ -39,8 +39,12 @@ export const onGetDomainChatRooms = async (id: string) => {
                 }
             }
         })
+        
+        console.log(domains?.customer[0].chatRoom)
 
         if(domains) return domains;
+
+        console.log("🔴There was no domains found")
 
     } catch (error) {
        console.log("🔴There was an error in the onGetDomainChatRooms", error) 
