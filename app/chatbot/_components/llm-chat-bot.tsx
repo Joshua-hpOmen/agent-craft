@@ -9,7 +9,7 @@ const LLMChatBot = () => {
   const { botOpened, onOpenChatbot, onStartChatting, onChats, register, onLLMResponding, messageWindowRef, currentChatbot, loading, setOnChats, onRealTime } = useChatBot()
   return (
 
-    <div className='h-screen flex flex-col justify-end items-end gap-4 bg-background'>
+    <div className='h-screen flex flex-col justify-end items-end gap-4 bg-transparent'>
 
       {
         botOpened && <Botwindow
