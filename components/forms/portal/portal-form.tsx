@@ -38,6 +38,7 @@ const PortalForm = (props: Props) => {
 
     React.useEffect(() => {
       if(props.questions.every(ques => ques.answered)) onNext();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[props.questions])
   return (
     <form className="h-full flex flex-col gap-10 justify-center" onSubmit={onBookAppointement}>

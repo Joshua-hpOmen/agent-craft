@@ -7,13 +7,12 @@ import { onUpdateDomain } from "@/actions/settings/update-domain";
 import { ChangePasswordSchema, ChangePasswordType } from "@/schema/auth-schema";
 import { DomainSettingsSchema, DomainSettingsType } from "@/schema/settings-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {UploadClient} from "@uploadcare/upload-client";
+import { UploadClient } from "@uploadcare/upload-client";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { fa } from "zod/v4/locales";
 
 const upload = new UploadClient({
     publicKey: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY!

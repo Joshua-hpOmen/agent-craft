@@ -1,10 +1,9 @@
-import { cn, extractUUIDFromString } from '@/lib/utils'
-import React from 'react'
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
+import { cn } from '@/lib/utils'
+import { format } from "date-fns"
 import { UserIcon } from 'lucide-react'
-import {format} from "date-fns"
 import Image from 'next/image'
 import Link from 'next/link'
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 
 type Props = {
     message: {

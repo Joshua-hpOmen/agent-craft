@@ -1,13 +1,10 @@
 import { onGetSubscriptionPlan } from '@/actions/settings'
-import React from 'react'
+import { pricingCards } from '@/constants/landing-page'
+import { CheckCircle2Icon, PlusIcon } from 'lucide-react'
 import Section from '../global/section-label'
 import { Card, CardContent, CardDescription } from '../ui/card'
-import { CheckCircle2Icon, CheckCircleIcon, PlusIcon } from 'lucide-react'
-import { pricingCards } from '@/constants/landing-page'
 
-type Props = {}
-
-const BillingSetting = async (props: Props) => {
+const BillingSetting = async () => {
     const plan = await onGetSubscriptionPlan()
 
   return (

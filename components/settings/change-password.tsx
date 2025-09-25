@@ -1,16 +1,13 @@
 "use client"
-import { useChangePassword } from '@/hooks/settings/use-settings'
-import React from 'react'
-import Section from '../global/section-label'
-import FormGenerator from '../forms/form-generator'
 import { UserRegFormIptType, UserRegFormType } from '@/constants/form'
+import { useChangePassword } from '@/hooks/settings/use-settings'
 import { FieldValues, UseFormRegister } from 'react-hook-form'
-import { Button } from '../ui/button'
+import FormGenerator from '../forms/form-generator'
 import Loader from '../global/loader'
+import Section from '../global/section-label'
+import { Button } from '../ui/button'
 
-type Props = {}
-
-const ChangePassword = (props: Props) => {
+const ChangePassword = () => {
 
     const {register, errors, onChangePassword, loading} = useChangePassword();
   return (

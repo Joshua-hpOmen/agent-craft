@@ -13,9 +13,7 @@ import PlanUsage from './_components/plan-usage';
 import { PlanType } from '@/types';
 import { Separator } from '@/components/ui/separator';
 
-type Props = {}
-
-const page =  async (props: Props) => {
+const page =  async () => {
     const clients = await onGetUserClietns();
     const sales = 5000;
     const bookings = await onGetUserAppointments() 

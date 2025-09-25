@@ -5,9 +5,7 @@ import { currentUser } from '@clerk/nextjs/server'
 import React from 'react'
 import EmailMarketing from './_components/email-marketing';
 
-type Props = {}
-
-const page = async (props: Props) => {
+const page = async () => {
     
     const user = await currentUser();
     if(!user) return;

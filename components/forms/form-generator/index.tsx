@@ -17,7 +17,7 @@ type Props = {
     errors: FieldErrors<FieldValues>
     lines?: number
     form?: string
-    defaultValue: string | null
+    defaultValue?: string | null
 }
 
 const FormGenerator = (props: Props) => {

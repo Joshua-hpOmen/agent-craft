@@ -4,12 +4,11 @@ import React from 'react'
 import Loader from './loader'
 import { Switch } from '../ui/switch'
 
-type Props = {}
 
-const BreadCrumb = (props: Props) => {
+const BreadCrumb = () => {
     //WIP: setup the header
 
-    const {chatRoom, expand, loading, onActivateRealTime, onExpand, page, onSignOut, realtime} = useSidebar()
+    const {chatRoom, loading, onActivateRealTime, page, realtime} = useSidebar()
   return (
     <div className='flex flex-col'>
 

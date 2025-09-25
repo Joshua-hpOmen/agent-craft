@@ -4,9 +4,7 @@ import ChangePassword from '@/components/settings/change-password'
 import DarkModeToggle from '@/components/settings/dark-mode-toggle'
 import React from 'react'
 
-type Props = {}
-
-const page = (props: Props) => {
+const page = () => {
   return (
     <>
         <InfoBar/>

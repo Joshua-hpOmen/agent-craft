@@ -3,9 +3,7 @@ import InfoBar from '@/components/global/info-bar'
 import React from 'react'
 import IntegrationsList from './_components/integration-list'
 
-type Props = {}
-
-const page = async (props: Props) => {
+const page = async () => {
   
     const payment = await onGetPaymentConnected();
 

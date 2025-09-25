@@ -2,12 +2,11 @@
 
 import { onCreateHelpDeskQuestion } from "@/actions/settings/create-help-desk-question"
 import { onGetAllHelpDeskQuestions } from "@/actions/settings/get-all-help-desk-questions"
-import { HelpDeskQuestionSchema, HelpDeskQuestionsType} from "@/schema/settings-schema"
+import { HelpDeskQuestionSchema, HelpDeskQuestionsType } from "@/schema/settings-schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import React from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
-import { fa } from "zod/v4/locales"
 
 export const useHelpDesk = (id: string) => {
 

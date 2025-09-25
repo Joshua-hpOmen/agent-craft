@@ -1,18 +1,13 @@
 import { onGetAllBookingForCurrentUser } from '@/actions/appointment/on-get-all-booking-for-current-user';
 import InfoBar from '@/components/global/info-bar';
-import { currentUser } from '@clerk/nextjs/server'
-import React from 'react'
-import AllAppointments from './_components/all-appointments';
-import { Card, CardContent } from '@/components/ui/card';
-import {format} from "date-fns"
-import { Separator } from '@/components/ui/separator';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Divide } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
+import { currentUser } from '@clerk/nextjs/server';
+import { format } from "date-fns";
+import AllAppointments from './_components/all-appointments';
 
-
-type Props = {}
-
-const page = async (props: Props) => {
+const page = async () => {
 
     const user = await currentUser();
     if(!user) return;

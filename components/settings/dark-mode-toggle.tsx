@@ -7,9 +7,7 @@ import { SystemMode } from '../themes-placeholder/systemmode'
 import { LightMode } from '../themes-placeholder/lightmode'
 import { DarkMode } from '../themes-placeholder/darkmode'
 
-type Props = {}
-
-const DarkModeToggle = (props: Props) => {
+const DarkModeToggle = () => {
   const { setTheme, theme} = useThemeMode()
   return (
     <div className='grid grid-cols-1 lg:grid-cols-5 gap-10'>

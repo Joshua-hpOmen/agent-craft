@@ -1,11 +1,9 @@
 import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
+import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { EMAIL_MARKETING_HEADER } from '@/constants/menu'
 import { cn } from '@/lib/utils'
-import React from 'react'
 import CustomerAnswers from './customer-answer'
-import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 
 type Props = {
     domains: {

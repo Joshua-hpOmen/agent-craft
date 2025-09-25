@@ -1,21 +1,19 @@
 "use client"
 
-import { useEmailMarketing } from '@/hooks/mail/use-email-marketing'
-import { Plans } from '@/lib/generated/prisma'
-import { PlanType } from '@/types'
-import React from 'react'
-import CustomerTable from './customer-table'
-import { Button } from '@/components/ui/button'
-import { ContactIcon, PlusIcon } from 'lucide-react'
-import Modal from '@/components/modal'
-import Loader from '@/components/global/loader'
 import FormGenerator from '@/components/forms/form-generator'
-import { FieldValues, UseFormRegister, UseFormSetValue } from 'react-hook-form'
-import { UserRegFormIptType, UserRegFormType } from '@/constants/form'
+import Loader from '@/components/global/loader'
+import Modal from '@/components/modal'
+import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardTitle } from '@/components/ui/card'
-import { cn } from '@/lib/utils'
+import { UserRegFormIptType, UserRegFormType } from '@/constants/form'
+import { useEmailMarketing } from '@/hooks/mail/use-email-marketing'
 import CalIcon from '@/icons/cal-icon'
-import {format} from "date-fns"
+import { Plans } from '@/lib/generated/prisma'
+import { cn } from '@/lib/utils'
+import { format } from "date-fns"
+import { ContactIcon, PlusIcon } from 'lucide-react'
+import { FieldValues, UseFormRegister, UseFormSetValue } from 'react-hook-form'
+import CustomerTable from './customer-table'
 import EditEmail from './edit-email'
 
 type Props = {
@@ -60,7 +58,6 @@ const EmailMarketing = (props: Props) => {
         onSetAnsweredId,
         isId,
         onCreateEmailTemplate,
-        editing,
     } = useEmailMarketing();
 
   return (

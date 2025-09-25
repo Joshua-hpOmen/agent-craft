@@ -67,7 +67,7 @@ export default function Home() {
               <CardFooter className="flex flex-col items-start gap-4">
                 <div>
                   {card.features.map(features => (
-                    <div key={features}i className="flex gap-2">
+                    <div key={features} className="flex gap-2">
                       <CheckIcon/>
                       <p>{features}</p>
                     </div>
