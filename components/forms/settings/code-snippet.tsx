@@ -10,7 +10,8 @@ type Props = {
 }
 
 const CodeSnippet = (props: Props) => {
-    const [hasCopied, setCopy] = React.useState(false)
+    const [hasCopied, setCopy] = React.useState(false);
+    const [isHTMLActiveTab, setIsHTMLActiveTab] = React.useState(true)
 
     const snippet = `
 <script>
@@ -87,7 +88,7 @@ export default function Chatbot() {
 
     const handleClick = () => {
 
-        navigator.clipboard.writeText(snippet); 
+        navigator.clipboard.writeText(isHTMLActiveTab ? snippet : reactSnippet); 
         setCopy(true)
         toast.success("Copied to clipboard");
         setTimeout(() => {
@@ -105,7 +106,7 @@ export default function Chatbot() {
 
 
 
-            <Tabs defaultValue='html'>
+            <Tabs defaultValue='html' onValueChange={() => setIsHTMLActiveTab(prev => !prev)}>
 
                 <TabsList>
                     <TabsTrigger value='html'>HTML</TabsTrigger>
