@@ -1,24 +1,23 @@
+import Bubble from '@/components/global/bubble'
+import TabsMenu from '@/components/tabs'
+import { Accordion, AccordionContent, AccordionTrigger } from '@/components/ui/accordion'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Separator } from '@/components/ui/separator'
+import { TabsContent } from '@/components/ui/tabs'
+import { Textarea } from '@/components/ui/textarea'
+import { BOT_TABS_MENU } from '@/constants/menu'
+import ChatIcon from '@/icons/chat-icon'
 import { ChatMessageType } from '@/schema/conversation-schema'
-import { RuntimeChatbotType } from '@/types'
+import { AccordionItem } from '@radix-ui/react-accordion'
+import { Link2Icon, SendIcon } from 'lucide-react'
+import Image from 'next/image'
 import React from 'react'
 import { UseFormRegister } from 'react-hook-form'
 import RealtimeMode from './realtime-mode'
-import Image from 'next/image'
-import { BOT_TABS_MENU } from '@/constants/menu'
-import ChatIcon from '@/icons/chat-icon'
-import TabsMenu from '@/components/tabs'
-import { TabsContent } from '@/components/ui/tabs'
-import { Separator } from '@/components/ui/separator'
-import Bubble from '@/components/global/bubble'
 import Responding from './responding'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import { Link2Icon, LinkIcon, SendIcon } from 'lucide-react'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
-import { Accordion, AccordionContent, AccordionTrigger } from '@/components/ui/accordion'
-import { AccordionItem } from '@radix-ui/react-accordion'
 
 type Props = {
   
@@ -125,7 +124,7 @@ const Botwindow = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
 
                                     <Link2Icon />
                                     <Input type='file' id='bot-image' {...props.register("image")} className='hidden' />
-
+                        
                                 </Label>
                             </div>
                         </div>

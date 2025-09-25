@@ -5,18 +5,16 @@ import Messenger from '@/components/global/messenger'
 import { Separator } from '@/components/ui/separator'
 import React from 'react'
 
-type Props = {}
-
-const page = async (props: Props) => {
+const page = async () => {
   const domains = await onGetAllAccountDomains()
   return (
-    <div className="w-full h-full flex">
+    <div className="min-w-full h-full flex max-h-full overflow-hidden">
 
         <ConversationMenu domain={domains?.domains} />
         
         <Separator orientation='vertical' />
 
-        <div className="w-full flex flex-col">
+        <div className="flex-1 flex flex-col">
             <div className="px-5">
                 <InfoBar />
             </div>

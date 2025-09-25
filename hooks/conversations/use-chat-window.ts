@@ -5,10 +5,10 @@ import { onRealTimeChat } from "@/actions/conversations/on-real-time-chat";
 import { useChatContext } from "@/context/user-chat-context"
 import { pusherClient } from "@/lib/utils";
 import { ChatMessageSchema, ChatMessageType } from "@/schema/conversation-schema";
-import { UserType } from "@/types/user-type";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { cuid } from "zod";
 
 export const useChatWindow = () => {
     const {chats, loading, setChat, chatRoom} = useChatContext();
@@ -38,35 +38,40 @@ export const useChatWindow = () => {
     
     //WIP
 
-    // React.useEffect(() => {
+    React.useEffect(() => {
         
-    //     if(!chatRoom) return;
+        if(!chatRoom) return;
 
-    //     pusherClient.subscribe(chatRoom);
-    //     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    //     pusherClient.bind("realtime-mode", (data: any) => {
-    //         setChat(prev => [...prev, data.chat])
-    //     })
+        pusherClient.subscribe(chatRoom);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        pusherClient.bind("realtime-mode", (data: any) => {
+            setChat(prev => [...prev, data.chat])
+        })
 
-    //     return () => pusherClient.unsubscribe("realtime-mode");
+        return () => {
+            pusherClient.unbind("realtime-mode");
+            pusherClient.unsubscribe(chatRoom)
+        };
 
-    // }, [chatRoom, setChat]);
+    }, [chatRoom, setChat]);
 
     const onHandleSentMessage = handleSubmit(async (values) => {
 
         try {
            
-            const message = await onOwnerSentMessage(chatRoom!, values.content!, "assistant");
+            reset()
 
-            if(message) {
-                setChat(prev => [...prev, message.message[0]]);
-                // await onRealTimeChat(
-                //     chatRoom!,
-                //     message.message[0].message,
-                //     message.message[0].id,
-                //     "assistant"
-                // )
-            }
+            if(!values.content) return;
+
+            onOwnerSentMessage(chatRoom!, values.content!, "assistant");
+
+            await onRealTimeChat(
+                chatRoom!,
+                values.content,
+                `${cuid()}`,
+                "assistant"
+            )
+
 
         } catch (error) {
            console.log("🔴There was an error in the onHandleSentMessage function", error) 

@@ -7,10 +7,10 @@ type Props = {
 
 const layout = (props: Props) => {
   return (
-    <div className="flex container justify-between">
+    <div className="flex h-screen container justify-between flex-col">
 
         <PortalBanner/>
-        <div className="container flex justify-center flex-1 h-0">
+        <div className="container flex justify-center flex-1">
             {props.children}
         </div>
 

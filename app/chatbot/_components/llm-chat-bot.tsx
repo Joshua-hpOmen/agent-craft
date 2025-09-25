@@ -5,9 +5,7 @@ import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import Botwindow from './bot-window'
 
-type Props = {}
-
-const LLMChatBot = (props: Props) => {
+const LLMChatBot = () => {
   const { botOpened, onOpenChatbot, onStartChatting, onChats, register, onLLMResponding, messageWindowRef, currentChatbot, loading, setOnChats, onRealTime } = useChatBot()
   return (
 

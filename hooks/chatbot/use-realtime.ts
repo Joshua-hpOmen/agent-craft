@@ -11,19 +11,25 @@ export const useRealtime = (chatRoom: string, setChats: React.Dispatch<React.Set
 
     React.useEffect(() => {
 
-        // pusherClient.subscribe(chatRoom);
-        // pusherClient.bind("realtime-mode", data => {
-        //     setChats(prev => [
-        //         ...prev,
-        //         {
-        //             role: data.chat.role,
-        //             content: data.chat.message
-        //         }
-        //     ])
-        // }) 
+        pusherClient.subscribe(chatRoom);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        pusherClient.bind("realtime-mode", (data: any) => {
+            console.log("🔴The psuherClient has been binded");
+            
+            setChats(prev => [
+                ...prev,
+                {
+                    role: data.chat.role,
+                    content: data.chat.message
+                }
+            ])
+        }) 
 
 
-        // return () => pusherClient.unsubscribe("realtime-mode");
+        return () => {
+            pusherClient.unbind("realtime-mode")
+            pusherClient.unsubscribe(chatRoom)
+        };
 
     }, [chatRoom, setChats])
 

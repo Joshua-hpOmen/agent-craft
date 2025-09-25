@@ -21,7 +21,7 @@ export const ChatMessageSchema = z.object({
     content: z.string().optional().or(z.literal("").transform(() => undefined)),
     image: z.any().optional()
 }).refine(schema => {
-    if(!schema.image.length) return true;
+    if(!schema.image?.length) return true;
 
     if(ACCEPTED_FILE_TYPES.includes(schema.image[0].type() && schema.image[0].size <= MAX_UPLOAD_SIZE)) return true;
 })

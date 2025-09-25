@@ -1,6 +1,6 @@
 import { onGetChatMessages } from "@/actions/conversations/on-get-chat-messages"
 import { onGetDomainChatRooms } from "@/actions/conversations/on-get-domain-chat-rooms"
-import { ChatsRole, useChatContext } from "@/context/user-chat-context"
+import { useChatContext } from "@/context/user-chat-context"
 import { COnversationSearchSchema, ConversationSearchType } from "@/schema/conversation-schema"
 import { ChatRoomsType } from "@/types"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -8,6 +8,7 @@ import React from "react"
 import { useForm } from "react-hook-form"
 
 export const useConversation = () => {
+
     const {register, watch, control} = useForm<ConversationSearchType>({
         resolver: zodResolver(COnversationSearchSchema),
         mode: "onChange"
@@ -17,6 +18,8 @@ export const useConversation = () => {
 
     const [chatRooms, setChatRooms] = React.useState<ChatRoomsType>([]);
     const [loading, setLoading] = React.useState(false);
+    const [activeChatId, setActiveChat] = React.useState("");
+    const [activeDomain, setActiveDomain] = React.useState<string>("")
 
     React.useEffect(() => {
 
@@ -27,9 +30,10 @@ export const useConversation = () => {
         try {
      
             const rooms = await onGetDomainChatRooms(value.domain!)
-            if(rooms) {
+            if(!!rooms?.customer.length) {
                 setLoading(false);
                 setChatRooms(rooms.customer);
+                setActiveDomain(value.domain!)
             }
  
         } catch (error) {
@@ -38,10 +42,17 @@ export const useConversation = () => {
 
        }) 
 
+
        return () => search.unsubscribe();
 
 
     }, [watch])
+
+    const triggerRefresh = async () => {
+        const rooms = await onGetDomainChatRooms(activeDomain);
+        if(!rooms) return;
+        setChatRooms(rooms.customer);
+    }
 
     const onGetActiveChatMessages = async (id: string) => {
 
@@ -66,7 +77,10 @@ export const useConversation = () => {
         chatRooms,
         loading,
         onGetActiveChatMessages,
-        control
+        control,
+        setActiveChat,
+        activeChatId,
+        triggerRefresh 
     }
 
 }

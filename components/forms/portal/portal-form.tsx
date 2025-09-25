@@ -36,25 +36,28 @@ const PortalForm = (props: Props) => {
 
     const { step, onNext, onPrev, register, errors, loading, onBookAppointement, date, setDate, onSelectedTimeSlote, selectedSlot } = usePortal(props.customerId, props.domainId, props.email)
 
+    React.useEffect(() => {
+      if(props.questions.every(ques => ques.answered)) onNext();
+    },[props.questions])
   return (
     <form className="h-full flex flex-col gap-10 justify-center" onSubmit={onBookAppointement}>
         <PortalSteps
-            loading={loading}
-            slot={selectedSlot}
-            bookings={props.bookings}
-            onSlot={onSelectedTimeSlote}
-            date={date}
-            onBooking={setDate}
-            step={step}
-            type={props.type}
-            questions={props.questions}
-            error={errors}
-            register={register}
-            onNext={onNext}
-            products={props.products}
-            onBack={onPrev}
-            amount={props.amount}
-            stripeId={props.stripeId}
+          loading={loading}
+          slot={selectedSlot}
+          bookings={props.bookings}
+          onSlot={onSelectedTimeSlote}
+          date={date}
+          onBooking={setDate}
+          step={step}
+          type={props.type}
+          questions={props.questions}
+          error={errors}
+          register={register}
+          onNext={onNext}
+          products={props.products}
+          onBack={onPrev}
+          amount={props.amount}
+          stripeId={props.stripeId}
         />
         {[1, 2].includes(step) && (
             <div className="w-full flex justify-center">

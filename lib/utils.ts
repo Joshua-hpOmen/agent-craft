@@ -1,6 +1,8 @@
 import { UploadClient } from "@uploadcare/upload-client"
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
+import  PusherClient from "pusher-js"
+import PusherServer from "pusher"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -12,16 +14,15 @@ export const extractUUIDFromString = (url: string) => {
   )
 }
 
-export const pusherClient = /* new PusherClient(process.env.NEXT_PUBLIC_PUSHER_APP_KEY as string, {cluster: "mt1"} ) */ ""
+export const pusherClient = new PusherClient(process.env.NEXT_PUBLIC_PUSHER_APP_KEY as string, {cluster: "us3"} ) 
 
-export const pusherServer  =  {};
-// new PusherServer({
-//   appId: process.env.PUSHER_APP_ID as string,
-//   key: process.env.NEXT_PUBLIC_PUSHER_APP_KEY as string,
-//   secret: process.env.PUSHER_APP_SECRET as string,
-//   cluster: "mt1",
-//   useTLS: true
-// })
+export const pusherServer  = new PusherServer({
+  appId: process.env.PUSHER_APP_ID as string,
+  key: process.env.NEXT_PUBLIC_PUSHER_APP_KEY as string,
+  secret: process.env.PUSHER_APP_SECRET as string,
+  cluster: "us3",
+  useTLS: true
+})
 
 export const postToParent = (message: string) => {
   window.parent.postMessage(message, "*")
@@ -32,9 +33,13 @@ export const upload = new UploadClient({
 })
 
 export const extractEmailsFromString = (text: string) => {
-  return text.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/gi)
-}
+  return text.match(
+    /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g
+  ) || [];
+};
+
 
 export const extractURLFromString = (url: string) => {
-  return url.match(/https?:\/\/[^\s"<>]+/)
+  return url.match(/https?:\/\/[^\s"<>]+[A-Za-z0-9_-]/
+)
 }

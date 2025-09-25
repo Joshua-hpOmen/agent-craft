@@ -3,8 +3,9 @@ import { useChatTime } from '@/hooks/conversations/use-chat-time'
 import React from 'react'
 import { Card, CardContent, CardDescription } from '../ui/card'
 import { Avatar, AvatarFallback } from '../ui/avatar'
-import { UserIcon } from 'lucide-react'
+import { StarIcon, UserIcon } from 'lucide-react'
 import { UrgentIcon } from '@/icons/urgent-icon'
+import { cn } from '@/lib/utils'
 
 type Props = {
     title: string,
@@ -12,16 +13,19 @@ type Props = {
     createdAt: Date,
     id: string,
     onChat: () => void,
-    seen?: boolean
+    seen?: boolean,
+    setActiveChat: () => void,
+    activeChatId: string,
+    stared: boolean
 }
 
 //WIP
 
 const ChatCard = (props: Props) => {
-  const { messageSentAt, urgent } = useChatTime(props.createdAt, props.id) 
+  const { messageSentAt, urgent } = useChatTime(props.createdAt, props.id);
 
   return (
-   <Card className='rounded-none border-r-0 hover:bg-muted cursor-pointer transition duration-150 ease-in-out p-0' onClick={props.onChat}>
+   <Card className={cn('rounded-2 border-r-0 hover:bg-muted cursor-pointer transition duration-150 ease-in-out p-0', props.activeChatId === props.id && "bg-orange/40")} onClick={() => {props.onChat(); props.setActiveChat()}}>
         
         <CardContent className='py-4 flex gap-3'>
 
@@ -33,16 +37,19 @@ const ChatCard = (props: Props) => {
                 </Avatar>
             </div>
 
-            <div className="flex justify-between w-full">
+            <div className="flex justify-between w-full gap-2 items-center">
                 <div>
 
-                    <div className="flex gap-5 items-center">
+                    <div className="flex gap-5 items-center justify-center">
 
                         <CardDescription className='font-bold leading-none text-gray-600'>
                             {props.title}
                         </CardDescription>
-                    
-                        {urgent && !props.seen && <UrgentIcon />}
+
+                        <div className='flex gap-1 items-center px-1'>
+                            {urgent && !props.seen && <UrgentIcon />}
+                            {props.stared && <StarIcon stroke='orange'/>} 
+                        </div>
 
                     </div>
 
@@ -53,7 +60,7 @@ const ChatCard = (props: Props) => {
                 </div>
 
                 <div className='flex w-[70px] justify-end'>
-                    <CardDescription className='text-xs'>
+                    <CardDescription className='text-xs text-nowrap'>
                         {props.createdAt ? messageSentAt : ""}
                     </CardDescription>
                 </div>

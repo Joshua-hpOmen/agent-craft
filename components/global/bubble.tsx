@@ -17,7 +17,7 @@ type Props = {
 
 const Bubble = (props: Props) => {
   const newDate = new Date();
-  const image = extractUUIDFromString(props.message.content);
+  const image = props.message.link?.startsWith("https://ucarecdn.com/") ? props.message.link : null;
   
   return (
     <div className={cn("flex gap-2 items-end", props.message.role === "assistant" ? "self-start": "self-end flex-row-reverse")}>
@@ -49,7 +49,7 @@ const Bubble = (props: Props) => {
 
             {
                 image ? <div className="relative aspect-square">
-                    <Image src={`https://ucarecdn.com/${image[0]}/-/preview/3000x3000`} fill alt="Icon/avatar" />
+                    <Image src={image} fill alt="Icon/avatar" />
                 </div> : <p className="text-sm">
                     {props.message.content.replace("(complete)", " ")}
                     {

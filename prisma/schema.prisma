@@ -95,7 +95,7 @@ model CustomerResponses {
 
 model Customer {
   id    String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  email String? 
+  email String?
 
   questions CustomerResponses[]
 
@@ -115,6 +115,7 @@ model ChatRoom {
   updatedAt  DateTime  @updatedAt
   Customer   Customer? @relation(fields: [customerId], references: [id], onDelete: Cascade)
   customerId String?   @db.Uuid
+  stared     Boolean   @default(false)
 
   message ChatMessage[]
 }

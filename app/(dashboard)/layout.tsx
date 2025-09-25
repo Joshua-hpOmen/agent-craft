@@ -17,7 +17,7 @@ const layout = async (props: Props) => {
       <div className='flex h-screen w-full'>
         <Sidebar domains={authenticatedUser.domain} />
 
-        <div className='w-full h-screen flex flex-col py-3 pr-10 pl-20 md:px-10'>
+        <div className='flex-1 h-screen flex flex-col py-3 pl-20 md:pl-5'>
           {props.children}
         </div> 
 

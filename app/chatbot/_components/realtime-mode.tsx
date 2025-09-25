@@ -13,8 +13,7 @@ type Props = {
 
 const RealtimeMode = (props: Props) => {
   
-    useRealtime(props.chatRoomId, props.setChats);
-
+  useRealtime(props.chatRoomId, props.setChats);
 
   return (
     <Card className='px-3 rounded-full py-1 bg-orange font-bold text-white text-sm'>

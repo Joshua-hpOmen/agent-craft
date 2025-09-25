@@ -20,7 +20,7 @@ export const onGetDomainChatRooms = async (id: string) => {
                             select: {
                                 createdAt: true,
                                 id: true,
-
+                                stared: true,
                                 message: {
                                     select: {
                                         message: true,
@@ -40,8 +40,6 @@ export const onGetDomainChatRooms = async (id: string) => {
             }
         })
         
-        console.log(domains?.customer[0].chatRoom)
-
         if(domains) return domains;
 
         console.log("🔴There was no domains found")

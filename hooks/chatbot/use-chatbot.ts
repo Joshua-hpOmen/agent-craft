@@ -8,6 +8,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import React from "react"
 import { useForm } from "react-hook-form"
 
+type ChatTypeForLLM = { role: "assistant" | "user", content: string }[]
+
 export const useChatBot = () => {
     const {register, handleSubmit, reset} = useForm<ChatMessageType>({
         resolver: zodResolver(ChatMessageSchema),
@@ -42,6 +44,7 @@ export const useChatBot = () => {
     const [onChats, setOnChats] = React.useState<{role: "assistant" | "user", content: string, link?: string}[]>([])
     const [onLLMResponding, setOnLLMResponding] = React.useState(false);
     const [currentBotId, setCurrentBotId] = React.useState("");
+    const [customerId, setCustomerId] = React.useState<string | null>(null);
 
     const [onRealTime, setOnRealtime] = React.useState<{chatRoom: string, mode: boolean} | undefined>(undefined);
 
@@ -96,13 +99,18 @@ export const useChatBot = () => {
 
 
     const onStartChatting = handleSubmit(async (values) => {
-        reset();
+
+        reset()
 
         if(values.image.length){
             const uploded = await upload.uploadFile(values.image[0]);
-            setOnChats(prev => [...prev, {role: "user", content: uploded.uuid}])
-            setOnLLMResponding(true);
-            const response = await onLLMAssistant(currentBotId!, onChats, "user", uploded.uuid);
+
+            const isInRealtime = Boolean(onRealTime?.mode);
+            if(!isInRealtime) setOnChats(prev => [...prev, {role: "user", content: values.content ?? "", link: `https://ucarecdn.com/${uploded.uuid}/-/preview/3000x3000` }]);
+            setOnLLMResponding(!isInRealtime);
+
+
+            const response = await onLLMAssistant(currentBotId!, onChats as ChatTypeForLLM, "user", uploded.uuid, customerId);
 
             if(response){
                 setOnLLMResponding(false);
@@ -115,23 +123,31 @@ export const useChatBot = () => {
                     }));
 
                 } else {
+                    //@ts-expect-error there can be a link provided
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    setOnChats((prev: any) => [...prev, response.response])
+                    setOnChats((prev: any) => [...prev, {role: response.response?.role, content: response.response?.content, link: response.response?.link}])
+                }
+
+                if(response.response && !!response.response.customerId && !customerId){
+                   setCustomerId(response.response.customerId);
                 }
             }
         }
 
         if(values.content){
+            const isInRealtime = Boolean(onRealTime?.mode);
+
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            setOnChats((prev:any) => [...prev, {role:"user", content: values.content}])
-            setOnLLMResponding(true);
+            if(!isInRealtime) setOnChats((prev:any) => [...prev, {role:"user", content: values.content}]);
+            setOnLLMResponding(!isInRealtime);
     
-            const response = await onLLMAssistant(currentBotId, onChats, "user", values.content)
+            console.log("🔴This is the realtime bool for responding at realtime", !!onRealTime?.chatRoom)
 
-
+            const response = await onLLMAssistant(currentBotId, onChats as ChatTypeForLLM, "user", values.content, customerId)
+            
+            setOnLLMResponding(false);
             if(response){
-                setOnLLMResponding(false);
-
+                
                 if(response.live){
                     setOnRealtime(prev => ({
                         ...prev,
@@ -139,14 +155,19 @@ export const useChatBot = () => {
                         mode: response.live
                     }))
                 }else {
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    setOnChats((prev: any) => [...prev, response.response])
+                    //@ts-expect-error The error is not valid as the response potentially contains a link
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any 
+                    setOnChats((prev: any) => [...prev, {role: response.response?.role, content: response.response?.content, link: response.response?.link}])
                 }
 
+                if(response.response && !!response.response.customerId && !customerId){
+                   setCustomerId(response.response.customerId);
+                }
 
             } 
         
         }
+
 
     })
 

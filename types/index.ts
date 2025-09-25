@@ -25,6 +25,7 @@ export type ChatRoomsType = {
     chatRoom: {
         id: string,
         createdAt: Date,
+        stared: boolean,
         message: {
             message: string,
             createdAt: Date,

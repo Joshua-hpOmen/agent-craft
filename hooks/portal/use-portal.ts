@@ -1,6 +1,7 @@
 "use client"
 
 import { onBookNewAppointment } from "@/actions/appointment/on-book-new-appointment"
+import { onSaveAnswers } from "@/actions/appointment/save-answers"
 import React from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
@@ -8,7 +9,7 @@ import { toast } from "sonner"
 export const usePortal = (customerId: string, domainId: string, email: string) => {
     const {register, setValue, formState: {errors}, handleSubmit} = useForm()
 
-    const [step, setStep] = React.useState(2)
+    const [step, setStep] = React.useState(1)
     const [date, setDate] = React.useState<Date | undefined>(new Date());
     const [selectedSlot, setSelectedSlot] = React.useState<string | undefined>("");
     const [loading, setLoading] = React.useState(false);
@@ -22,6 +23,23 @@ export const usePortal = (customerId: string, domainId: string, email: string) =
 
         try {
            setLoading(true);
+
+            console.log("🔴These are the values", values)
+
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const questions = Object.keys(values).filter(key => key.startsWith("question")).reduce((obj: any, key) => {
+                obj[key.split("question-")[1]] = values[key]
+                return obj;
+            }, {})
+
+            console.log("🔴These are the questions", questions)
+
+            const savedAnswers = await onSaveAnswers(questions, customerId);
+
+            if(!savedAnswers) {
+               setLoading(false);
+               return 
+            }
 
            const booked = await onBookNewAppointment(domainId, customerId, values.slot, values.date, email);
 

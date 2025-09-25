@@ -22,7 +22,7 @@ export const useChatTime = (createdAt: Date, roomId: string) => {
                 setUrgent(true);
             }
         } else {
-            setMessageSentAt(`${dateRecieved.getDate} ${format(dateRecieved, "LLLL")}`);
+            setMessageSentAt(`${dateRecieved.getDate()} ${format(dateRecieved, "LLLL")}`);
         }
     }, [createdAt])
 

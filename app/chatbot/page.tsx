@@ -1,9 +1,7 @@
 import React from 'react'
 import LLMChatBot from './_components/llm-chat-bot'
 
-type Props = {}
-
-const page = (props: Props) => {
+const page = () => {
   return (
     <LLMChatBot/>
   )

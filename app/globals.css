@@ -375,3 +375,13 @@ body {
 .animate-fade-in {
   animation: fade-in 0.2 ease-out;
 }
+
+.scrollHide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollHide::-webkit-scrollbar {
+  display: none;
+}
+
