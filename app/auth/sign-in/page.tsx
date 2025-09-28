@@ -2,12 +2,12 @@ import SignInFormProvider from '@/components/forms/sign-in/form-provider'
 import LoginForm from '@/components/forms/sign-in/login-form'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import React from 'react'
+import CopyCredentials from './_components/copy-credentials'
 
 const page = () => {
   return (
     <div className='flex-1 py-36 md:px-16 w-full'>
-      <div className='flex flex-col h-full gap-3'>
+      <div className='flex flex-col h-full gap-3 relative'>
 
         <SignInFormProvider>
 
@@ -30,7 +30,12 @@ const page = () => {
 
         </SignInFormProvider> 
 
+        <div className='absolute left-0 right-0 bottom-20'>
+          <CopyCredentials/>
+        </div>
+
       </div>
+
     </div>
   )
 }
